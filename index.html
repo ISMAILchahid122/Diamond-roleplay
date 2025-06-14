@@ -1,339 +1,388 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-<title>Diamond RP - SAMP Server</title>
-<style>
-  /* Reset and base */
-  * {
-    margin: 0; padding: 0; box-sizing: border-box;
-  }
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-    color: #e0e0e0;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
-  a {
-    text-decoration: none;
-    color: #61dafb;
-    transition: color 0.3s ease;
-  }
-  a:hover {
-    color: #21a1f1;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SA:MP Server - Home</title>
+  <style>
+    /* Reset */
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      transition: background-color 0.4s, color 0.4s;
+    }
 
-  header {
-    background: rgba(0,0,0,0.6);
-    padding: 15px 20px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-  }
-  header h1 {
-    font-weight: 900;
-    font-size: 1.8rem;
-    letter-spacing: 2px;
-    color: #61dafb;
-    user-select: none;
-  }
-  nav ul {
-    display: flex;
-    gap: 18px;
-    list-style: none;
-  }
-  nav ul li {
-    font-size: 1rem;
-    font-weight: 600;
-  }
-  nav ul li:hover {
-    color: #21a1f1;
-    cursor: pointer;
-  }
+    body {
+      background: linear-gradient(135deg, #0a0a0a, #121212);
+      color: #c9d1d9;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+      padding: 1rem 1.5rem 3rem;
+      font-size: 16px;
+      line-height: 1.5;
+      user-select: text;
+    }
 
-  main {
-    flex: 1;
-    padding: 20px 15px;
-    max-width: 900px;
-    margin: auto;
-  }
+    body.light {
+      background: #f0f8ff;
+      color: #222;
+    }
 
-  /* Server Status */
-  .server-status {
-    background: rgba(255, 255, 255, 0.05);
-    padding: 20px 25px;
-    border-radius: 15px;
-    box-shadow: 0 0 25px #21a1f1;
-    margin-bottom: 30px;
-    text-align: center;
-  }
-  .server-status h2 {
-    font-size: 1.8rem;
-    margin-bottom: 8px;
-    color: #61dafb;
-  }
-  .server-status p {
-    font-size: 1.2rem;
-    margin-bottom: 12px;
-  }
-  .players-count {
-    font-weight: 900;
-    font-size: 2.4rem;
-    color: #21a1f1;
-    letter-spacing: 3px;
-  }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 40px rgba(77, 208, 225, 0.3);
+      background: rgba(20, 20, 20, 0.75);
+    }
 
-  /* Announcement ticker */
-  .announcement {
-    background: #061623;
-    padding: 12px 20px;
-    border-radius: 12px;
-    overflow: hidden;
-    margin-bottom: 30px;
-    box-shadow: 0 0 15px #21a1f1;
-    position: relative;
-  }
-  .announcement h3 {
-    font-size: 1.4rem;
-    margin-bottom: 8px;
-    color: #61dafb;
-  }
-  .ticker {
-    white-space: nowrap;
-    overflow: hidden;
-  }
-  .ticker p {
-    display: inline-block;
-    padding-left: 100%;
-    animation: ticker 20s linear infinite;
-    font-weight: 600;
-    font-size: 1rem;
-    color: #d4f1f9;
-  }
-  @keyframes ticker {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-100%); }
-  }
+    .stars {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0; left: 0;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+      background: transparent;
+    }
 
-  /* Staff Section */
-  .staff-section {
-    margin-bottom: 30px;
-  }
-  .staff-section h2 {
-    font-size: 1.8rem;
-    margin-bottom: 15px;
-    color: #61dafb;
-    text-align: center;
-  }
-  .staff-list {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
-  .staff-member {
-    background: rgba(255, 255, 255, 0.07);
-    border-radius: 15px;
-    width: 160px;
-    padding: 12px;
-    text-align: center;
-    box-shadow: 0 0 15px #21a1f1;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: default;
-  }
-  .staff-member:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 0 25px #61dafb;
-  }
-  .staff-member img {
-    border-radius: 50%;
-    width: 90px;
-    height: 90px;
-    margin-bottom: 12px;
-    object-fit: cover;
-    border: 3px solid #21a1f1;
-  }
-  .staff-member h4 {
-    font-weight: 700;
-    margin-bottom: 4px;
-    color: #fff;
-    font-size: 1.1rem;
-  }
-  .staff-member span {
-    font-size: 0.85rem;
-    color: #a1c9f1;
-  }
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: #a0e7f7;
+      border-radius: 50%;
+      opacity: 0.7;
+      animation-name: fall;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      filter: drop-shadow(0 0 2px #4dd0e1);
+    }
 
-  /* Rules Section */
-  .rules-section {
-    background: rgba(255,255,255,0.05);
-    border-radius: 15px;
-    padding: 20px 25px;
-    box-shadow: 0 0 20px #21a1f1;
-    margin-bottom: 40px;
-  }
-  .rules-section h2 {
-    color: #61dafb;
-    margin-bottom: 15px;
-    font-size: 1.8rem;
-    text-align: center;
-  }
-  .rules-list {
-    list-style: none;
-    line-height: 1.5;
-    font-size: 1rem;
-  }
-  .rules-list li {
-    margin-bottom: 10px;
-    padding-left: 20px;
-    position: relative;
-  }
-  .rules-list li::before {
-    content: "✔";
-    color: #21a1f1;
-    position: absolute;
-    left: 0;
-  }
+    @keyframes fall {
+      0% {
+        transform: translateY(-10px);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(110vh);
+        opacity: 0;
+      }
+    }
 
-  /* Footer */
-  footer {
-    background: #061623;
-    padding: 15px 10px;
-    text-align: center;
-    font-size: 0.85rem;
-    color: #6a8caf;
-    user-select: none;
-    box-shadow: 0 -3px 10px #203a43;
-  }
+    header {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      color: #4dd0e1;
+      text-shadow: 0 0 12px #4dd0e1;
+      user-select: none;
+    }
 
-  /* Responsive */
-  @media (max-width: 768px) {
-    .staff-list {
-      flex-direction: column;
+    .intro {
+      font-size: 1.4rem;
+      margin-bottom: 2rem;
+      color: #9ee7ff;
+      user-select: text;
+      font-weight: 500;
+      text-shadow: 0 0 6px #00acc1aa;
+    }
+
+    .server-status {
+      background: rgba(77, 208, 225, 0.15);
+      border-radius: 16px;
+      padding: 2rem 2.5rem;
+      box-shadow: 0 0 20px #4dd0e1cc;
+      margin-bottom: 2.5rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: #b3e5fc;
+    }
+
+    .server-status .players {
+      font-size: 3rem;
+      color: #00acc1;
+      margin-bottom: 0.4rem;
+      text-shadow: 0 0 12px #00acc1cc;
+    }
+
+    .server-status .ip {
+      font-size: 1.3rem;
+      margin-bottom: 0.7rem;
+      user-select: text;
+      letter-spacing: 1.3px;
+      text-shadow: 0 0 8px #00acc1bb;
+    }
+
+    .server-status .state {
+      font-size: 1.1rem;
+      color: #26a69a;
+      text-shadow: 0 0 6px #26a69aaa;
+      user-select: none;
+    }
+
+    .server-status .state.offline {
+      color: #e57373;
+      text-shadow: 0 0 6px #e57373aa;
+    }
+
+    .admin-panel {
+      background: rgba(0, 140, 255, 0.15);
+      border-radius: 14px;
+      padding: 1.8rem 2rem;
+      margin-bottom: 3rem;
+      color: #80deea;
+      font-weight: 600;
+      box-shadow: 0 0 25px #0288d1cc;
+      text-align: left;
+      line-height: 1.6;
+    }
+
+    .admin-panel p {
+      margin-bottom: 1rem;
+      font-size: 1.15rem;
+      user-select: none;
+      text-shadow: 0 0 6px #00acc1aa;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 2.8rem;
+      flex-wrap: wrap;
+    }
+
+    button,
+    .discord-btn {
+      cursor: pointer;
+      border: none;
+      padding: 0.9rem 2.2rem;
+      font-weight: 700;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+      transition: background-color 0.3s ease, color 0.3s ease,
+        transform 0.15s ease;
+      font-size: 1.1rem;
+      user-select: none;
+      color: #222;
+      background: #4dd0e1;
+      text-decoration: none;
+      display: inline-flex;
       align-items: center;
+      gap: 0.6rem;
+      justify-content: center;
+      min-width: 140px;
     }
-    nav ul {
-      flex-direction: column;
-      gap: 12px;
+
+    button:hover,
+    .discord-btn:hover {
+      background: #00acc1;
+      color: #eee;
+      transform: scale(1.08);
+      box-shadow: 0 6px 18px #00acc1cc;
     }
-  }
-  @media (max-width: 400px) {
-    header h1 {
-      font-size: 1.4rem;
+
+    #theme-toggle {
+      background: #0288d1;
+      color: white;
     }
-    nav ul li {
-      font-size: 0.9rem;
+
+    #theme-toggle:hover {
+      background: #015f7a;
     }
-    .server-status h2,
-    .staff-section h2,
-    .rules-section h2,
-    .announcement h3 {
-      font-size: 1.4rem;
+
+    .discord-btn {
+      background: #7289da;
+      color: white;
     }
-    .players-count {
-      font-size: 2rem;
+
+    .discord-btn svg {
+      width: 22px;
+      height: 22px;
+      fill: white;
     }
-  }
-</style>
+
+    .socials {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 2.5rem;
+    }
+
+    .socials a {
+      color: #4dd0e1;
+      font-size: 2.3rem;
+      transition: color 0.3s ease;
+      user-select: none;
+      filter: drop-shadow(0 0 3px #00acc1cc);
+      text-decoration: none;
+    }
+
+    .socials a:hover {
+      color: #00acc1;
+      filter: drop-shadow(0 0 7px #00acc1dd);
+    }
+
+    footer {
+      margin-top: 4rem;
+      padding-top: 1.2rem;
+      font-weight: 700;
+      color: #4dd0e1;
+      text-align: center;
+      user-select: none;
+      text-shadow: 0 0 10px #4dd0e1cc;
+      font-size: 1.1rem;
+    }
+
+    /* Light theme overrides */
+    body.light {
+      color: #222;
+      background: #e0f7fa;
+    }
+
+    body.light .container {
+      background: rgba(240, 248, 255, 0.9);
+      box-shadow: 0 0 35px #0288d1aa;
+    }
+
+    body.light header {
+      color: #0288d1;
+      text-shadow: 0 0 8px #0288d1aa;
+    }
+
+    body.light .intro {
+      color: #026f99;
+      text-shadow: none;
+    }
+
+    body.light .server-status {
+      background: rgba(2, 136, 209, 0.15);
+      box-shadow: 0 0 20px #0288d1cc;
+      color: #015f7a;
+    }
+
+    body.light .admin-panel {
+      background: rgba(2, 136, 209, 0.15);
+      color: #015f7a;
+      box-shadow: 0 0 20px #0288d1cc;
+    }
+
+    body.light button,
+    body.light .discord-btn {
+      color: #222;
+      background: #4dd0e1;
+    }
+
+    body.light button:hover,
+    body.light .discord-btn:hover {
+      background: #0288d1;
+      color: white;
+    }
+
+    body.light .socials a {
+      color: #0288d1;
+      filter: none;
+    }
+
+    body.light .socials a:hover {
+      color: #015f7a;
+      filter: none;
+    }
+  </style>
 </head>
 <body>
+  <div class="stars" aria-hidden="true"></div>
 
-<header>
-  <h1>Diamond RP</h1>
-  <nav>
-    <ul>
-      <li><a href="#status">Server Status</a></li>
-      <li><a href="#announcements">Announcements</a></li>
-      <li><a href="#staff">Staff</a></li>
-      <li><a href="#rules">Rules</a></li>
-    </ul>
-  </nav>
-</header>
+  <div class="container" role="main">
+    <!-- Introduction -->
+    <header>Welcome to Our Exclusive SA:MP Server</header>
+    <p class="intro">
+      We offer the best gameplay experience in the world of San Andreas with a professional team, stable server, and unique atmosphere.
+      Join us and enjoy the open world and exciting RP environment.
+    </p>
 
-<main>
+    <!-- Server Status -->
+    <section class="server-status" aria-label="Server Status">
+      <div class="players" id="players-count" aria-live="polite" aria-atomic="true">
+        Players Online: 27 / 100
+      </div>
+      <div class="ip">Server IP: 46.183.184.33:5812</div>
+      <div class="state" id="server-state">
+        Server Status: <span>Online</span>
+      </div>
+    </section>
 
-  <!-- Server Status -->
-  <section class="server-status" id="status">
-    <h2>Server Status</h2>
-    <p>The server is running smoothly and open for play</p>
-    <div class="players-count" id="playersCount">0 / 50 Players</div>
-  </section>
+    <!-- Administration -->
+    <section class="admin-panel" aria-label="Server Administration">
+      <p>President: <strong>★eva★</strong></p>
+      <p>Deputy: <strong>shan</strong></p>
+      <p>Technical Manager: <strong>ghost</strong></p>
+      <p>Head Admin: <strong>karl</strong></p>
+    </section>
 
-  <!-- Announcements -->
-  <section class="announcement" id="announcements">
-    <h3>Announcements</h3>
-    <div class="ticker">
-      <p>Welcome to Diamond RP! ⚡️ | New update coming next week with awesome features! 🚀 | Remember to follow the rules to keep the gameplay fun! 🎮</p>
+    <!-- Buttons -->
+    <div class="buttons">
+      <button id="theme-toggle" aria-pressed="false" aria-label="Toggle dark/light mode">Light Mode</button>
+      <a href="https://discord.gg/yourdiscord" target="_blank" rel="noopener" class="discord-btn" aria-label="Visit Discord Server">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path
+            d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0786-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0795.0095c.1192.099.246.1981.372.2924a.0766.0766 0 01-.006.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1062c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286z"
+          />
+        </svg>
+        Discord
+      </a>
     </div>
-  </section>
 
-  <!-- Staff Members -->
-  <section class="staff-section" id="staff">
-    <h2>Staff Members</h2>
-    <div class="staff-list">
-      <div class="staff-member" title="Server Owner">
-        <img src="https://i.pravatar.cc/100?img=12" alt="Server Owner" />
-        <h4>Ahmed</h4>
-        <span>Server Owner</span>
-      </div>
-      <div class="staff-member" title="Head Moderator">
-        <img src="https://i.pravatar.cc/100?img=5" alt="Head Moderator" />
-        <h4>Sarah</h4>
-        <span>Head Moderator</span>
-      </div>
-      <div class="staff-member" title="Support Moderator">
-        <img src="https://i.pravatar.cc/100?img=8" alt="Support Moderator" />
-        <h4>Mohamed</h4>
-        <span>Support Moderator</span>
-      </div>
-      <div class="staff-member" title="Developer">
-        <img src="https://i.pravatar.cc/100?img=15" alt="Developer" />
-        <h4>Laila</h4>
-        <span>Developer</span>
-      </div>
+    <!-- Social Media -->
+    <div class="socials" aria-label="Social Media Links">
+      <a href="https://twitter.com/yourprofile" target="_blank" rel="noopener" aria-label="Twitter" title="Twitter">🐦</a>
+      <a href="https://facebook.com/yourprofile" target="_blank" rel="noopener" aria-label="Facebook" title="Facebook">📘</a>
+      <a href="https://instagram.com/yourprofile" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram">📸</a>
+      <a href="https://youtube.com/yourchannel" target="_blank" rel="noopener" aria-label="YouTube" title="YouTube">▶️</a>
     </div>
-  </section>
+  </div>
 
-  <!-- Rules -->
-  <section class="rules-section" id="rules">
-    <h2>Server Rules</h2>
-    <ul class="rules-list">
-      <li>Respect all players at all times.</li>
-      <li>No cheating or using external software.</li>
-      <li>No harassment or insulting other players or staff.</li>
-      <li>Follow roleplay and event rules.</li>
-      <li>No exploiting bugs or glitches.</li>
-      <li>Avoid inappropriate language or discrimination.</li>
-      <li>Follow staff instructions and avoid arguments.</li>
-      <li>No advertising other servers inside this server.</li>
-      <li>Do not share personal information of others.</li>
-      <li>Report any issues promptly to the staff.</li>
-    </ul>
-  </section>
+  <footer>
+    Thank you for visiting our server website. Have a great time!
+  </footer>
 
-</main>
+  <script>
+    // Falling stars animation
+    const starsContainer = document.querySelector('.stars');
+    const numStars = 120;
 
-<footer>
-  © 2025 Diamond RP. All rights reserved.
-</footer>
+    function randomBetween(min, max) {
+      return Math.random() * (max - min) + min;
+    }
 
-<script>
-  // Update player count example (simulate data change)
-  function updatePlayerCount() {
-    const maxPlayers = 50;
-    const currentPlayers = Math.floor(Math.random() * (maxPlayers + 1));
-    document.getElementById('playersCount').textContent = `${currentPlayers} / ${maxPlayers} Players`;
-  }
-  updatePlayerCount();
-  setInterval(updatePlayerCount, 00);
-</script>
+    for (let i = 0; i < numStars; i++) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      star.style.left = `${randomBetween(0, 100)}vw`;
+      star.style.top = `${randomBetween(-100, 0)}vh`;
+      const size = randomBetween(1, 3);
+      star.style.width = star.style.height = `${size}px`;
+      star.style.opacity = randomBetween(0.3, 0.9);
+      star.style.animationDuration = `${randomBetween(5, 15)}s`;
+      star.style.animationDelay = `${randomBetween(0, 15)}s`;
+      starsContainer.appendChild(star);
+    }
 
+    // Theme toggle button logic
+    const themeToggle = document.getElementById('theme-toggle');
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('light');
+      const isLight = document.body.classList.contains('light');
+      themeToggle.setAttribute('aria-pressed', isLight);
+      themeToggle.textContent = isLight ? 'Dark Mode' : 'Light Mode';
+    });
+  </script>
 </body>
 </html>
