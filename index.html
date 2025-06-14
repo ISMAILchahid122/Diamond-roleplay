@@ -1,200 +1,301 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Diamond RP - Los Santos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Diamond RP - Largest Mobile SAMP Server</title>
   <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: white;
-      background: url('https://i.imgur.com/Mfr0hEj.jpg') no-repeat center center fixed;
-      background-size: cover;
-      animation: fadeBackground 20s ease-in-out infinite alternate;
+    @import url('https://fonts.googleapis.com/css2?family=Cairo&display=swap');
+
+    * {
+      box-sizing: border-box;
     }
 
-    @keyframes fadeBackground {
-      0% { filter: brightness(0.6); }
-      100% { filter: brightness(0.9); }
+    body {
+      margin: 0;
+      font-family: 'Cairo', sans-serif;
+      background: url('https://i.imgur.com/Mfr0hEj.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #f0f0f0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top:0; left:0; right:0; bottom:0;
+      background: rgba(0, 0, 0, 0.65);
+      z-index: -1;
     }
 
     header {
-      background-color: rgba(0, 0, 0, 0.7);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 25px;
-      backdrop-filter: blur(5px);
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      padding: 20px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 10px rgba(0,0,0,0.7);
+      animation: fadeInDown 1s ease forwards;
+      position: relative;
+      overflow: hidden;
     }
 
-    .logo {
-      font-size: 1.7em;
-      font-weight: bold;
-      color: #00ccff;
-      animation: popIn 1s ease;
+    header h1 {
+      margin: 0;
+      font-size: 2.4rem;
+      letter-spacing: 3px;
+      text-shadow: 0 0 15px #ffcc00;
     }
 
-    .menu-toggle {
-      display: none;
-      flex-direction: column;
-      cursor: pointer;
+    header p {
+      margin-top: 10px;
+      font-size: 1.2rem;
+      color: #ffdd55;
+      text-shadow: 0 0 8px #ffaa00;
+      animation: glow 2.5s ease-in-out infinite alternate;
     }
 
-    .menu-toggle span {
-      height: 3px;
-      width: 25px;
-      background: white;
-      margin: 4px 0;
-      transition: all 0.3s ease;
+    @keyframes glow {
+      0% { text-shadow: 0 0 8px #ffaa00; }
+      100% { text-shadow: 0 0 20px #ffd700; }
     }
 
-    nav {
-      display: flex;
-      gap: 20px;
-    }
-
-    nav a {
-      text-decoration: none;
-      color: #fff;
-      font-weight: bold;
-      transition: color 0.3s;
-    }
-
-    nav a:hover {
-      color: #ffd700;
+    main {
+      flex: 1;
+      padding: 20px;
+      max-width: 600px;
+      margin: 0 auto 40px auto;
+      animation: fadeInUp 1s ease forwards;
     }
 
     section {
-      padding: 50px 30px;
-      background-color: rgba(0, 0, 0, 0.6);
-      margin: 30px;
+      background: rgba(255, 255, 255, 0.12);
       border-radius: 15px;
-      backdrop-filter: blur(6px);
-      animation: slideUp 1.5s ease;
-    }
-
-    h2 {
-      font-size: 2em;
-      color: #ffd700;
-      margin-bottom: 20px;
-    }
-
-    .card {
-      background-color: rgba(255, 255, 255, 0.05);
       padding: 20px;
-      border-radius: 10px;
-      margin-bottom: 20px;
-      transition: transform 0.3s, background 0.3s;
-      animation: fadeIn 1s ease-in-out;
+      margin-bottom: 25px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.8);
+      transition: background 0.3s ease;
+      position: relative;
+      overflow: hidden;
     }
 
-    .card:hover {
-      transform: scale(1.03);
-      background-color: rgba(255, 255, 255, 0.1);
+    section:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    section h2 {
+      margin-top: 0;
+      font-size: 1.6rem;
+      color: #ffcc00;
+      text-align: center;
+      text-shadow: 0 0 10px #ffcc00;
+      margin-bottom: 15px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0 0 0;
+    }
+
+    ul li {
+      background: rgba(255, 255, 255, 0.15);
+      margin: 8px 0;
+      padding: 12px 15px;
+      border-radius: 10px;
+      font-size: 1.15rem;
+      box-shadow: inset 0 0 5px rgba(255, 204, 0, 0.7);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.3s ease;
+    }
+
+    ul li:hover {
+      background: rgba(255, 255, 255, 0.35);
+      cursor: default;
+    }
+
+    ul li span {
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 0 0 4px #000;
+    }
+
+    a {
+      color: #ffcc00;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
     }
 
     footer {
       text-align: center;
-      padding: 20px;
-      background: rgba(0, 0, 0, 0.8);
+      padding: 15px 10px;
+      font-size: 0.9rem;
+      background: rgba(255, 255, 255, 0.1);
       color: #ccc;
-      font-size: 0.9em;
+      user-select: none;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.7);
+      margin-top: auto;
     }
 
-    @keyframes slideUp {
-      from {opacity: 0; transform: translateY(20px);}
-      to {opacity: 1; transform: translateY(0);}
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    @keyframes popIn {
-      0% {transform: scale(0.5); opacity: 0;}
-      100% {transform: scale(1); opacity: 1;}
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    @keyframes fadeIn {
-      from {opacity: 0;}
-      to {opacity: 1;}
+    .stars {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
     }
 
-    @media (max-width: 768px) {
-      .menu-toggle {
-        display: flex;
+    .star {
+      position: absolute;
+      background: #fff;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: twinkle 3s infinite alternate;
+    }
+
+    @keyframes twinkle {
+      from { opacity: 0.3; }
+      to { opacity: 0.9; }
+    }
+
+    .star.small {
+      width: 2px;
+      height: 2px;
+      animation-duration: 2s;
+    }
+
+    .star.medium {
+      width: 3px;
+      height: 3px;
+      animation-duration: 3.5s;
+    }
+
+    .star.large {
+      width: 4px;
+      height: 4px;
+      animation-duration: 4s;
+    }
+
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 1.8rem;
       }
-
-      nav {
-        display: none;
-        flex-direction: column;
-        background: rgba(0, 0, 0, 0.9);
-        width: 100%;
-        padding: 10px 0;
-        position: absolute;
-        top: 60px;
-        right: 0;
+      header p {
+        font-size: 1rem;
       }
-
-      nav.active {
-        display: flex;
+      section h2 {
+        font-size: 1.4rem;
       }
-
-      nav a {
-        padding: 10px;
+      ul li {
+        font-size: 1rem;
+      }
+      main {
+        padding: 15px 10px;
+        max-width: 100%;
       }
     }
   </style>
 </head>
 <body>
 
+<div class="stars" aria-hidden="true"></div>
+
 <header>
-  <div class="logo">💎 Diamond RP</div>
-  <div class="menu-toggle" onclick="toggleMenu()">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-  <nav id="nav">
-    <a href="#about">About</a>
-    <a href="#news">News</a>
-    <a href="#founders">Founders</a>
-  </nav>
+  <h1>Welcome to Diamond RP</h1>
+  <p>The largest and most exciting mobile SAMP roleplay server with the enchanting atmosphere of Los Santos</p>
 </header>
 
-<section id="about">
-  <h2>✨ Welcome to Diamond RP</h2>
-  <div class="card">
-    Diamond RP is one of the best SA-MP roleplay servers inspired by Los Santos city.<br><br>
-    🔹 Professional administration<br>
-    🔹 Custom jobs, gangs, and missions<br>
-    🔹 Active Discord community<br>
-    🔹 Weekly events and giveaways<br><br>
-    Join us and live your second life the way you want inside a realistic RP experience!
-  </div>
-</section>
+<main>
 
-<section id="news">
-  <h2>📢 Latest News</h2>
-  <div class="card">✅ Server updated to version 1.3 — new jobs added!</div>
-  <div class="card">💥 Gang wars now live every Saturday at 8PM!</div>
-  <div class="card">🎁 Daily rewards system has been launched!</div>
-</section>
+  <section>
+    <h2>Server Introduction</h2>
+    <p style="text-align:center; font-size:1.1rem; line-height:1.5; color:#ffeb99; text-shadow: 0 0 6px #ffaa00;">
+      Join <strong>Diamond RP</strong> where excitement and fun meet a complete roleplay system,  
+      a respectful community, and continuous exclusive events. Enjoy driving Los Santos cars,  
+      building relationships with players, and live an unforgettable experience in our virtual world.
+    </p>
+  </section>
 
-<section id="founders">
-  <h2>👑 Founders</h2>
-  <div class="card">★ Ismail ★ - Founder & Developer</div>
-  <div class="card">★ Eve ★ - Co-Founder & Designer</div>
-  <div class="card">★ Shadow ★ - Server Admin</div>
-</section>
+  <section>
+    <h2>Server Information</h2>
+    <ul>
+      <li>Server Address: <span>46.183.184.33:5812</span></li>
+      <li>Game Type: <span>San Andreas Multiplayer (SAMP)</span></li>
+      <li>Players Online: <span>102 / 200</span></li>
+      <li>Mode: <span>Roleplay - RP</span></li>
+      <li>Discord: <span><a href="https://discord.gg/yourserver" target="_blank" rel="noopener noreferrer">Join Now</a></span></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Administration</h2>
+    <ul>
+      <li>★eve★</li>
+      <li>shan</li>
+      <li>ghost</li>
+      <li>karl</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Server Rules</h2>
+    <ul>
+      <li>❗️ No cheating or hacking</li>
+      <li>🚫 No insulting other players</li>
+      <li>📵 No swearing or abusive language</li>
+      <li>⚖️ Respect RP rules and don’t break them</li>
+      <li>📢 Follow the instructions of the administration</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Important Links</h2>
+    <ul>
+      <li>🌐 Official Website: <a href="https://diamond-rp.net" target="_blank" rel="noopener noreferrer">diamond-rp.net</a></li>
+      <li>📺 YouTube Channel: <a href="https://youtube.com/diamondrp" target="_blank" rel="noopener noreferrer">Diamond RP</a></li>
+      <li>📱 Contact Us: <a href="mailto:support@diamond-rp.net">support@diamond-rp.net</a></li>
+    </ul>
+  </section>
+</main>
 
 <footer>
-  © 2025 Diamond RP. All rights reserved. Made with ❤️ for the community.
+  &copy; 2025 Diamond RP. All rights reserved.
 </footer>
 
 <script>
-  function toggleMenu() {
-    document.getElementById('nav').classList.toggle('active');
+  const starsContainer = document.querySelector('.stars');
+  const starCount = 80;
+
+  for(let i = 0; i < starCount; i++) {
+    const star = document.createElement('div');
+    star.classList.add('star');
+
+    const sizeRand = Math.random();
+    if (sizeRand < 0.5) star.classList.add('small');
+    else if (sizeRand < 0.85) star.classList.add('medium');
+    else star.classList.add('large');
+
+    star.style.top = Math.random() * 100 + 'vh';
+    star.style.left = Math.random() * 100 + 'vw';
+
+    star.style.animationDuration = (2 + Math.random() * 3) + 's';
+
+    starsContainer.appendChild(star);
   }
 </script>
 
