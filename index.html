@@ -1,147 +1,202 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Diamond RP Server</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Diamond RP - Los Santos</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
     body {
-      font-family: 'Orbitron', sans-serif;
-      background: url('https://i.imgur.com/VZbJZpO.jpg') no-repeat center center fixed;
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: white;
+      background: url('https://i.postimg.cc/FKtMRWr9/los-santos-bg.jpg') no-repeat center center fixed;
       background-size: cover;
-      color: #f0f0f0;
-      backdrop-filter: brightness(0.4);
-      animation: fadeIn 1.5s ease-in-out;
+      animation: fadeBackground 20s ease-in-out infinite alternate;
     }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+
+    @keyframes fadeBackground {
+      0% { filter: brightness(0.6); }
+      100% { filter: brightness(0.9); }
     }
+
     header {
-      background: rgba(0, 0, 0, 0.6);
-      padding: 30px;
-      text-align: center;
+      background-color: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 25px;
+      backdrop-filter: blur(5px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
-    header h1 {
-      font-size: 3em;
-      color: #00ffff;
+
+    .logo {
+      font-size: 1.7em;
+      font-weight: bold;
+      color: #00ccff;
+      animation: popIn 1s ease;
     }
-    header p, .ip-box {
-      font-size: 1.2em;
-      margin-top: 10px;
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
     }
+
+    .menu-toggle span {
+      height: 3px;
+      width: 25px;
+      background: white;
+      margin: 4px 0;
+      transition: all 0.3s ease;
+    }
+
     nav {
       display: flex;
-      justify-content: center;
-      background: rgba(0, 0, 0, 0.5);
       gap: 20px;
-      padding: 10px 0;
     }
+
     nav a {
-      color: #00ffff;
       text-decoration: none;
+      color: #fff;
       font-weight: bold;
       transition: color 0.3s;
     }
+
     nav a:hover {
-      color: #ffffff;
+      color: #ffd700;
     }
+
     section {
-      background: rgba(0, 0, 0, 0.5);
-      padding: 40px 20px;
-      margin: 20px auto;
-      max-width: 900px;
-      border-radius: 12px;
-      animation: fadeIn 1s ease-in-out;
+      padding: 50px 30px;
+      background-color: rgba(0, 0, 0, 0.6);
+      margin: 30px;
+      border-radius: 15px;
+      backdrop-filter: blur(6px);
+      animation: slideUp 1.5s ease;
     }
+
     h2 {
-      color: #00ffff;
-      border-bottom: 2px solid #00ffff;
-      padding-bottom: 10px;
+      font-size: 2em;
+      color: #ffd700;
       margin-bottom: 20px;
     }
-    ul {
-      padding-left: 20px;
+
+    .card {
+      background-color: rgba(255, 255, 255, 0.05);
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      transition: transform 0.3s, background 0.3s;
+      animation: fadeIn 1s ease-in-out;
     }
+
+    .card:hover {
+      transform: scale(1.03);
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
     footer {
       text-align: center;
-      background: rgba(0, 0, 0, 0.6);
-      color: #ccc;
       padding: 20px;
-      margin-top: 40px;
+      background: rgba(0, 0, 0, 0.8);
+      color: #ccc;
+      font-size: 0.9em;
     }
-    .button {
-      background: #00ffff;
-      color: #000;
-      padding: 12px 24px;
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: bold;
-      display: inline-block;
-      margin-top: 15px;
-      transition: background 0.3s;
+
+    @keyframes slideUp {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
     }
-    .button:hover {
-      background: #00cccc;
+
+    @keyframes popIn {
+      0% {transform: scale(0.5); opacity: 0;}
+      100% {transform: scale(1); opacity: 1;}
     }
-    .ip-box {
-      background-color: rgba(0, 0, 0, 0.4);
-      border: 2px solid #00ffff;
-      display: inline-block;
-      padding: 10px 20px;
-      border-radius: 8px;
-      margin-top: 15px;
+
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
     }
-    .center {
-      text-align: center;
+
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: flex;
+      }
+
+      nav {
+        display: none;
+        flex-direction: column;
+        background: rgba(0, 0, 0, 0.9);
+        width: 100%;
+        padding: 10px 0;
+        position: absolute;
+        top: 60px;
+        right: 0;
+      }
+
+      nav.active {
+        display: flex;
+      }
+
+      nav a {
+        padding: 10px;
+      }
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>💎 Diamond RP Server</h1>
-    <p>Your ultimate GTA San Andreas Roleplay Experience</p>
-    <div class="ip-box">🌐 Server IP: 46.183.184.33:5812</div>
-    <br />
-    <a class="button" href="https://discord.gg/GwNQnhsj" target="_blank">💬 Join Our Discord</a>
-  </header>  <nav>
-    <a href="#rules">Rules</a>
+
+<header>
+  <div class="logo">💎 Diamond RP</div>
+  <div class="menu-toggle" onclick="toggleMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <nav id="nav">
+    <a href="#about">About</a>
     <a href="#news">News</a>
-    <a href="#staff">Staff</a>
-    <a href="#contact">Contact</a>
-  </nav>  <section id="rules">
-    <h2>📜 Server Rules</h2>
-    <ul>
-      <li>🚫 No insults, racism, or spam.</li>
-      <li>🔫 No killing on sight (KOS).</li>
-      <li>🧬 No powergaming or metagaming.</li>
-      <li>📢 No advertising other servers.</li>
-      <li>🛡️ Respect all admins and players.</li>
-      <li>🚓 FearRP is mandatory during police situations.</li>
-    </ul>
-  </section>  <section id="news">
-    <h2>📰 Latest News</h2>
-    <p>✅ Gang Wars event added! Win rewards & street cred!</p>
-    <p>🔧 Server maintenance on Friday 10 PM GMT.</p>
-  </section>  <section id="staff">
-    <h2>👥 Staff Team</h2>
-    <ul>
-      <li>👑 Owner: eve_vialpando </li>
-      <li>🛡️ Co-Owner: shan_vialpando </li>
-      <li>⚔️tech_manager: ghost_vialpando</li>
-      <li>🧰chief of admins: karl_jonson</li>
-    </ul>
-  </section>  <section id="contact" class="center">
-    <h2>📞 Contact Us</h2>
-    <p>For help, join our Discord community.</p>
-    <a class="button" href="https://discord.gg/GwNQnhsj" target="_blank">💬 Join Discord</a>
-  </section>  <footer>
-    <p>© 2025 Diamond RP Server. All rights reserved. made with❤️.</p>
-  </footer>
+    <a href="#founders">Founders</a>
+  </nav>
+</header>
+
+<section id="about">
+  <h2>✨ Welcome to Diamond RP</h2>
+  <div class="card">
+    Diamond RP is one of the best SA-MP roleplay servers inspired by Los Santos city.<br><br>
+    🔹 Professional administration<br>
+    🔹 Custom jobs, gangs, and missions<br>
+    🔹 Active Discord community<br>
+    🔹 Weekly events and giveaways<br><br>
+    Join us and live your second life the way you want inside a realistic RP experience!
+  </div>
+</section>
+
+<section id="news">
+  <h2>📢 Latest News</h2>
+  <div class="card">✅ Server updated to version 1.3 — new jobs added!</div>
+  <div class="card">💥 Gang wars now live every Saturday at 8PM!</div>
+  <div class="card">🎁 Daily rewards system has been launched!</div>
+</section>
+
+<section id="founders">
+  <h2>👑 Founders</h2>
+  <div class="card">★ Ismail ★ - Founder & Developer</div>
+  <div class="card">★ Eve ★ - Co-Founder & Designer</div>
+  <div class="card">★ Shadow ★ - Server Admin</div>
+</section>
+
+<footer>
+  © 2025 Diamond RP. All rights reserved. Made with ❤️ for the community.
+</footer>
+
+<script>
+  function toggleMenu() {
+    document.getElementById('nav').classList.toggle('active');
+  }
+</script>
+
 </body>
 </html>
