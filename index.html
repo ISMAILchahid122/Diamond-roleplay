@@ -21,6 +21,26 @@
       display: flex;
       flex-direction: column;
       overflow-x: hidden;
+      transition: background-color 0.5s ease, color 0.5s ease;
+    }
+
+    body.light {
+      background: #fdf6e3;
+      color: #222;
+    }
+
+    body.light header,
+    body.light section,
+    body.light footer {
+      background: rgba(255, 255, 255, 0.9);
+      color: #222;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    body.light header p {
+      color: #bb8800;
+      text-shadow: none;
+      animation: none;
     }
 
     body::before {
@@ -29,6 +49,11 @@
       top:0; left:0; right:0; bottom:0;
       background: rgba(0, 0, 0, 0.65);
       z-index: -1;
+      transition: background 0.5s ease;
+    }
+
+    body.light::before {
+      background: rgba(255, 255, 255, 0.5);
     }
 
     header {
@@ -39,6 +64,7 @@
       animation: fadeInDown 1s ease forwards;
       position: relative;
       overflow: hidden;
+      transition: background-color 0.5s ease, color 0.5s ease;
     }
 
     header h1 {
@@ -54,6 +80,7 @@
       color: #ffdd55;
       text-shadow: 0 0 8px #ffaa00;
       animation: glow 2.5s ease-in-out infinite alternate;
+      transition: color 0.5s ease;
     }
 
     @keyframes glow {
@@ -75,7 +102,7 @@
       padding: 20px;
       margin-bottom: 25px;
       box-shadow: 0 0 15px rgba(0,0,0,0.8);
-      transition: background 0.3s ease;
+      transition: background 0.3s ease, color 0.3s ease;
       position: relative;
       overflow: hidden;
     }
@@ -91,6 +118,7 @@
       text-align: center;
       text-shadow: 0 0 10px #ffcc00;
       margin-bottom: 15px;
+      transition: color 0.5s ease;
     }
 
     ul {
@@ -110,6 +138,7 @@
       justify-content: space-between;
       align-items: center;
       transition: background 0.3s ease;
+      color: inherit;
     }
 
     ul li:hover {
@@ -119,13 +148,14 @@
 
     ul li span {
       font-weight: bold;
-      color: #fff;
+      color: inherit;
       text-shadow: 0 0 4px #000;
     }
 
     a {
       color: #ffcc00;
       text-decoration: none;
+      transition: color 0.3s ease;
     }
     a:hover {
       text-decoration: underline;
@@ -140,6 +170,7 @@
       user-select: none;
       box-shadow: inset 0 1px 3px rgba(0,0,0,0.7);
       margin-top: auto;
+      transition: background-color 0.5s ease, color 0.5s ease;
     }
 
     @keyframes fadeInDown {
@@ -152,43 +183,100 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    /* Falling stars */
     .stars {
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
       pointer-events: none;
-      overflow: hidden;
+      overflow: visible;
       z-index: 0;
     }
 
     .star {
       position: absolute;
-      background: #fff;
+      background: white;
       border-radius: 50%;
       opacity: 0.8;
-      animation: twinkle 3s infinite alternate;
+      animation-name: fall;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
     }
 
-    @keyframes twinkle {
-      from { opacity: 0.3; }
-      to { opacity: 0.9; }
+    @keyframes fall {
+      0% {
+        transform: translateY(-10px);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(110vh);
+        opacity: 0;
+      }
     }
 
+    /* Sizes and animation durations */
     .star.small {
       width: 2px;
       height: 2px;
-      animation-duration: 2s;
+      animation-duration: 5s;
     }
 
     .star.medium {
       width: 3px;
       height: 3px;
-      animation-duration: 3.5s;
+      animation-duration: 7s;
     }
 
     .star.large {
       width: 4px;
       height: 4px;
-      animation-duration: 4s;
+      animation-duration: 9s;
+    }
+
+    /* Crescent moon */
+    .moon {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 80px;
+      height: 80px;
+      background: #fffdd0;
+      border-radius: 50%;
+      box-shadow:
+        20px 0 0 0 #2e2e2e; /* shadow to create crescent shape */
+      z-index: 10;
+      filter: drop-shadow(0 0 4px #ffd700);
+      transition: background-color 0.5s ease, box-shadow 0.5s ease;
+    }
+
+    body.light .moon {
+      background: #444;
+      box-shadow:
+        20px 0 0 0 #fdf6e3;
+      filter: drop-shadow(0 0 4px #aaa);
+    }
+
+    /* Toggle Button */
+    #toggleTheme {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: rgba(255, 204, 0, 0.9);
+      border: none;
+      padding: 10px 18px;
+      border-radius: 25px;
+      font-weight: bold;
+      color: #222;
+      cursor: pointer;
+      font-family: 'Cairo', sans-serif;
+      box-shadow: 0 0 10px #ffcc00;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      z-index: 20;
+      user-select: none;
+    }
+
+    #toggleTheme:hover {
+      background: #ffaa00;
+      color: #fff;
     }
 
     @media (max-width: 480px) {
@@ -208,11 +296,21 @@
         padding: 15px 10px;
         max-width: 100%;
       }
+      #toggleTheme {
+        padding: 8px 14px;
+        font-size: 0.9rem;
+      }
+      .moon {
+        width: 60px;
+        height: 60px;
+      }
     }
   </style>
 </head>
 <body>
 
+<button id="toggleTheme" aria-label="Toggle Light/Dark Mode">Light Mode</button>
+<div class="moon" aria-hidden="true"></div>
 <div class="stars" aria-hidden="true"></div>
 
 <header>
@@ -274,29 +372,54 @@
 </main>
 
 <footer>
-  &copy; 2025 Diamond RP. All rights reserved.
+  made with ❤️ from Karl &copy; 2025 Diamond RP. All rights reserved.
 </footer>
 
 <script>
   const starsContainer = document.querySelector('.stars');
-  const starCount = 80;
+  const starCount = 60; // number of falling stars
+
+  function randomBetween(min, max) {
+    return Math.random() * (max - min) + min;
+  }
 
   for(let i = 0; i < starCount; i++) {
     const star = document.createElement('div');
     star.classList.add('star');
 
+    // random size
     const sizeRand = Math.random();
     if (sizeRand < 0.5) star.classList.add('small');
     else if (sizeRand < 0.85) star.classList.add('medium');
     else star.classList.add('large');
 
-    star.style.top = Math.random() * 100 + 'vh';
-    star.style.left = Math.random() * 100 + 'vw';
-
-    star.style.animationDuration = (2 + Math.random() * 3) + 's';
+    // random horizontal start position
+    star.style.left = randomBetween(0, 100) + 'vw';
+    // random animation delay to spread stars fall timing
+    star.style.animationDelay = (randomBetween(0, 9)) + 's';
 
     starsContainer.appendChild(star);
   }
+
+  // Theme toggle button logic
+  const toggleBtn = document.getElementById('toggleTheme');
+  const body = document.body;
+
+  function updateButtonText() {
+    if(body.classList.contains('light')) {
+      toggleBtn.textContent = 'Dark Mode';
+    } else {
+      toggleBtn.textContent = 'Light Mode';
+    }
+  }
+
+  toggleBtn.addEventListener('click', () => {
+    body.classList.toggle('light');
+    updateButtonText();
+  });
+
+  // initialize button text
+  updateButtonText();
 </script>
 
 </body>
