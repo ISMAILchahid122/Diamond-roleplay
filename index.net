@@ -1,0 +1,146 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diamond RP Server</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Orbitron', sans-serif;
+      background: url('https://i.imgur.com/VZbJZpO.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #f0f0f0;
+      backdrop-filter: brightness(0.4);
+      animation: fadeIn 1.5s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    header {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 30px;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 3em;
+      color: #00ffff;
+    }
+    header p, .ip-box {
+      font-size: 1.2em;
+      margin-top: 10px;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.5);
+      gap: 20px;
+      padding: 10px 0;
+    }
+    nav a {
+      color: #00ffff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: #ffffff;
+    }
+    section {
+      background: rgba(0, 0, 0, 0.5);
+      padding: 40px 20px;
+      margin: 20px auto;
+      max-width: 900px;
+      border-radius: 12px;
+      animation: fadeIn 1s ease-in-out;
+    }
+    h2 {
+      color: #00ffff;
+      border-bottom: 2px solid #00ffff;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    footer {
+      text-align: center;
+      background: rgba(0, 0, 0, 0.6);
+      color: #ccc;
+      padding: 20px;
+      margin-top: 40px;
+    }
+    .button {
+      background: #00ffff;
+      color: #000;
+      padding: 12px 24px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      display: inline-block;
+      margin-top: 15px;
+      transition: background 0.3s;
+    }
+    .button:hover {
+      background: #00cccc;
+    }
+    .ip-box {
+      background-color: rgba(0, 0, 0, 0.4);
+      border: 2px solid #00ffff;
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 8px;
+      margin-top: 15px;
+    }
+    .center {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>💎 Diamond RP Server</h1>
+    <p>Your ultimate GTA San Andreas Roleplay Experience</p>
+    <div class="ip-box">🌐 Server IP: 46.183.184.33:5812</div>
+    <br />
+    <a class="button" href="https://discord.gg/GwNQnhsj" target="_blank">💬 Join Our Discord</a>
+  </header>  <nav>
+    <a href="#rules">Rules</a>
+    <a href="#news">News</a>
+    <a href="#staff">Staff</a>
+    <a href="#contact">Contact</a>
+  </nav>  <section id="rules">
+    <h2>📜 Server Rules</h2>
+    <ul>
+      <li>🚫 No insults, racism, or spam.</li>
+      <li>🔫 No killing on sight (KOS).</li>
+      <li>🧬 No powergaming or metagaming.</li>
+      <li>📢 No advertising other servers.</li>
+      <li>🛡️ Respect all admins and players.</li>
+      <li>🚓 FearRP is mandatory during police situations.</li>
+    </ul>
+  </section>  <section id="news">
+    <h2>📰 Latest News</h2>
+    <p>✅ Gang Wars event added! Win rewards & street cred!</p>
+    <p>🔧 Server maintenance on Friday 10 PM GMT.</p>
+  </section>  <section id="staff">
+    <h2>👥 Staff Team</h2>
+    <ul>
+      <li>👑 Owner: Legend</li>
+      <li>🛡️ Co-Owner: Shadow</li>
+      <li>🧰 Admin: Ismail</li>
+    </ul>
+  </section>  <section id="contact" class="center">
+    <h2>📞 Contact Us</h2>
+    <p>For help, join our Discord community.</p>
+    <a class="button" href="https://discord.gg/GwNQnhsj" target="_blank">💬 Join Discord</a>
+  </section>  <footer>
+    <p>© 2025 Diamond RP Server. All rights reserved.</p>
+  </footer>
+</body>
+</html>
