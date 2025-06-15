@@ -1,12 +1,14 @@
-let box = document.getElementById("box");
-let pos = 0;
-
-function anima() {
-  if (pos < 300) {
-    pos++;
-    box.style.left = pos + "px";
-    requestAnimationFrame(anima);
+// anim.js
+function moveBox() {
+  const box = document.getElementById("box");
+  let pos = 0;
+  const id = setInterval(frame, 10);
+  function frame() {
+    if (pos >= 350) {
+      clearInterval(id);
+    } else {
+      pos++;
+      box.style.left = pos + "px";
+    }
   }
 }
-
-document.querySelector("button").addEventListener("click", anima);
