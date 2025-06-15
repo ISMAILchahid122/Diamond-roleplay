@@ -1,388 +1,698 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SA:MP Server - Home</title>
-  <style>
-    /* Reset */
-    * {
-      margin: 0; padding: 0; box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      transition: background-color 0.4s, color 0.4s;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Server Europa RP Learning Platform</title>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
 
-    body {
-      background: linear-gradient(135deg, #0a0a0a, #121212);
-      color: #c9d1d9;
-      min-height: 100vh;
-      overflow-x: hidden;
-      position: relative;
-      padding: 1rem 1.5rem 3rem;
-      font-size: 16px;
-      line-height: 1.5;
-      user-select: text;
-    }
+  /* Reset & base */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  body, html {
+    margin: 0; padding: 0;
+    min-height: 100%;
+    font-family: 'Inter', sans-serif;
+    color: #e0e7ff;
+    background: url('https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/5ad168ac-edf0-4f54-8014-8d8b138c7e6b.png') no-repeat center center/cover;
+    /* Remove overflow hidden to allow page scrolling */
+    overflow-y: auto;
+  }
+  #app {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: 1fr;
+    min-height: 100vh;
+    background: transparent;
+  }
 
-    body.light {
-      background: #f0f8ff;
-      color: #222;
-    }
+  /* Header */
+  header {
+    grid-row: 1;
+    background: linear-gradient(90deg, #060b24cc, #1c264fcc);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    height: 60px;
+    flex-shrink: 0;
+  }
+  .header-left, .header-center, .header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .header-logo {
+    font-weight: 700;
+    font-size: 1.5rem;
+    background: linear-gradient(135deg, #0ea5e9, #14b8a6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    cursor: default;
+  }
+  header .material-icons {
+    cursor: pointer;
+    color: #a5b4fcaa;
+    transition: color 0.2s ease;
+  }
+  header .material-icons:hover {
+    color: #14b8a6;
+  }
+  .search-input {
+    padding: 8px 12px;
+    border-radius: 12px;
+    border: none;
+    outline: none;
+    width: 220px;
+    background: rgba(255 255 255 / 0.12);
+    color: #e0e7ff;
+    font-size: 0.9rem;
+    transition: background 0.3s ease;
+  }
+  .search-input::placeholder {
+    color: #94a3b8;
+  }
+  .search-input:focus {
+    background: rgba(255 255 255 / 0.25);
+  }
+  .progress-overview {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #14b8a6;
+  }
+  .profile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+  }
+  .profile img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1.5px solid #14b8a6;
+  }
+  .profile-name {
+    font-weight: 600;
+  }
 
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      text-align: center;
-      position: relative;
-      z-index: 2;
-      padding: 1rem 2rem;
-      border-radius: 12px;
-      box-shadow: 0 0 40px rgba(77, 208, 225, 0.3);
-      background: rgba(20, 20, 20, 0.75);
-    }
+  /* Layout */
+  main {
+    grid-row: 2;
+    display: grid;
+    grid-template-columns: 300px 1fr 320px;
+    gap: 20px;
+    padding: 20px;
+    background: rgba(6,11,36,0.75);
+    backdrop-filter: blur(14px);
+    /* remove fixed height to allow page scroll */
+    min-height: 600px;
+  }
 
-    .stars {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      top: 0; left: 0;
-      pointer-events: none;
-      z-index: 1;
-      overflow: hidden;
-      background: transparent;
-    }
+  /* Sidebars common styles */
+  aside {
+    background: rgba(14,23,43,0.8);
+    border-radius: 16px;
+    box-shadow: 0 8px 15px rgb(6 11 36 / 0.8);
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    overflow-y: auto;
+    max-height: 80vh;
+  }
+  h2 {
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-bottom: 16px;
+    color: #38bdf8;
+  }
+  /* Left Sidebar - Course Navigation */
+  #left-sidebar .search-filter {
+    margin-bottom: 12px;
+  }
+  #left-sidebar input[type=search] {
+    width: 100%;
+    padding: 10px 16px;
+    border-radius: 12px;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    background: #0f172a;
+    color: #cbd5e1;
+  }
+  #course-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .course-card {
+    background: rgba(2 12 27 / 0.96);
+    border-radius: 14px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: inset 0 0 3px #14b8a6cc;
+    transition: box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+  .course-card:hover {
+    box-shadow: 0 0 15px #14b8a6;
+  }
+  .course-title {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #38bdf8;
+    margin-bottom: 6px;
+  }
+  .course-desc {
+    font-size: 0.85rem;
+    color: #94a3b8;
+    height: 2.4em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .progress-ring {
+    margin-top: 10px;
+    align-self: flex-start;
+    width: 50px;
+    height: 50px;
+  }
+  /* progress ring with SVG */
+  svg.progress-ring__circle {
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+  }
+  .progress-ring__circle-bg {
+    fill: transparent;
+    stroke: rgba(255,255,255,0.1);
+    stroke-width: 6;
+  }
+  .progress-ring__circle-progress {
+    fill: transparent;
+    stroke: #14b8a6;
+    stroke-width: 6;
+    stroke-linecap: round;
+    stroke-dasharray: 157;
+    stroke-dashoffset: calc(157 - (157 * var(--progress)) / 100);
+    transition: stroke-dashoffset 0.6s ease;
+  }
 
-    .star {
-      position: absolute;
-      width: 2px;
-      height: 2px;
-      background: #a0e7f7;
-      border-radius: 50%;
-      opacity: 0.7;
-      animation-name: fall;
-      animation-timing-function: linear;
-      animation-iteration-count: infinite;
-      filter: drop-shadow(0 0 2px #4dd0e1);
-    }
+  /* Middle Content - Lesson Player and Interactive */
+  #content {
+    background: rgba(2 12 27 / 0.9);
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+  #lesson-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #38bdf8;
+    border-bottom: 1px solid #14b8a6;
+    padding-bottom: 8px;
+  }
+  #video-player {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 0 20px #14b8a6cc;
+  }
+  video {
+    width: 100%;
+    border-radius: 14px 14px 0 0;
+  }
+  #video-controls {
+    background: #0f172a;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+  }
+  #video-controls button {
+    border: none;
+    background: none;
+    color: #38bdf8;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  #video-controls button:disabled {
+    color: #555;
+    cursor: default;
+  }
+  #video-progress {
+    flex-grow: 1;
+  }
+  #video-progress input[type=range] {
+    width: 100%;
+    cursor: pointer;
+  }
+  #transcript {
+    background: #060b24;
+    color: #9ca3af;
+    padding: 14px;
+    border-radius: 0 0 14px 14px;
+    font-size: 0.9rem;
+    max-height: 140px;
+    overflow-y: auto;
+    line-height: 1.4;
+  }
 
-    @keyframes fall {
-      0% {
-        transform: translateY(-10px);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(110vh);
-        opacity: 0;
-      }
-    }
+  /* Quiz Section */
+  #quiz {
+    background: #111a38;
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: 0 0 15px #14b8a6aa;
+  }
+  #quiz h3 {
+    color: #38bdf8;
+    margin-bottom: 14px;
+  }
+  .question {
+    margin-bottom: 18px;
+  }
+  .question p {
+    margin: 0 0 8px 0;
+    font-weight: 600;
+  }
+  .answers label {
+    display: block;
+    margin-bottom: 6px;
+    cursor: pointer;
+    font-size: 0.95rem;
+  }
+  .answers input[type=radio], .answers input[type=checkbox] {
+    margin-right: 8px;
+    cursor: pointer;
+  }
+  #quiz button.submit-btn {
+    margin-top: 14px;
+    font-size: 1rem;
+    font-weight: 600;
+    background: linear-gradient(135deg, #0ea5e9, #14b8a6);
+    border: none;
+    border-radius: 12px;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  #quiz button.submit-btn:hover {
+    background: linear-gradient(135deg, #0284c7, #0f766e);
+  }
+  #quiz .feedback {
+    margin-top: 10px;
+    font-weight: 700;
+  }
 
+  /* Right Sidebar */
+  #right-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    overflow-y: auto;
+    max-height: 80vh;
+  }
+
+  .progress-sidebar, .notes-sidebar, .discussion-sidebar, .resources-sidebar {
+    background: rgba(2 12 27 / 0.85);
+    border-radius: 16px;
+    box-shadow: 0 8px 15px rgb(6 11 36 / 0.8);
+    padding: 18px 16px;
+    display: flex;
+    flex-direction: column;
+    max-height: 30vh;
+    overflow-y: auto;
+  }
+  .sidebar-title {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #38bdf8;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #14b8a6aa;
+    padding-bottom: 6px;
+  }
+
+  /* Progress Sidebar */
+  #overall-progress-bar {
+    width: 100%;
+    height: 18px;
+    background: #0f172a;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-top: 6px;
+  }
+  #overall-progress-bar div {
+    height: 100%;
+    width: 0;
+    background: linear-gradient(135deg, #0ea5e9, #14b8a6);
+    border-radius: 16px 0 0 16px;
+    transition: width 0.5s ease;
+  }
+  .progress-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: #94a3b8;
+  }
+
+  /* Notes */
+  #note-textarea {
+    flex-grow: 1;
+    background: #0f172a;
+    border-radius: 12px;
+    padding: 10px;
+    font-size: 0.95rem;
+    color: #e0e7ff;
+    border: none;
+    resize: vertical;
+  }
+  #notes-controls button {
+    border: none;
+    background: #14b8a6;
+    color: #0f172a;
+    font-weight: 700;
+    border-radius: 12px;
+    cursor: pointer;
+    padding: 6px 14px;
+    transition: background 0.3s ease;
+  }
+  #notes-controls button:hover {
+    background: #0ea5e9;
+  }
+
+  /* Discussion */
+  #discussion-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    overflow-y: auto;
+  }
+  .discussion-message {
+    background: #162237;
+    padding: 10px 14px;
+    border-radius: 12px;
+    color: #cbd5e1;
+    font-size: 0.9rem;
+    position: relative;
+  }
+  .discussion-message .user {
+    font-weight: 700;
+    color: #38bdf8;
+  }
+  .discussion-message .time {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    font-size: 0.7rem;
+    color: #64748b;
+  }
+  #discussion-input {
+    margin-top: 8px;
+    display: flex;
+    gap: 8px;
+  }
+  #discussion-input input[type=text] {
+    flex-grow: 1;
+    border-radius: 12px;
+    border: none;
+    padding: 8px 14px;
+    font-size: 0.9rem;
+  }
+  #discussion-input button {
+    border: none;
+    background: #14b8a6;
+    color: #0f172a;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 8px 16px;
+    transition: background 0.3s ease;
+  }
+  #discussion-input button:hover {
+    background: #0ea5e9;
+  }
+
+  /* Resources */
+  #resources-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .resource-item {
+    background: #0f172a;
+    padding: 12px 16px;
+    border-radius: 12px;
+    color: #94a3b8;
+    font-size: 0.9rem;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.3s ease;
+  }
+  .resource-item:hover {
+    background: #14b8a6;
+    color: #0f172a;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    main {
+      grid-template-columns: 1fr 1fr;
+    }
+    #left-sidebar {
+      max-height: 300px;
+    }
+    #right-sidebar {
+      max-height: 300px;
+    }
+  }
+  @media (max-width: 768px) {
+    #app {
+      grid-template-rows: auto 1fr auto;
+      height: auto;
+    }
+    main {
+      grid-template-columns: 1fr !important;
+      padding: 12px;
+      height: auto;
+      overflow: visible;
+    }
+    #left-sidebar, #right-sidebar {
+      max-height: none;
+      padding: 12px 16px;
+    }
+    #left-sidebar {
+      order: 2;
+    }
+    #content {
+      order: 1;
+    }
+    #right-sidebar {
+      order: 3;
+    }
     header {
-      font-size: 3rem;
-      font-weight: 700;
-      margin-bottom: 0.4rem;
-      color: #4dd0e1;
-      text-shadow: 0 0 12px #4dd0e1;
-      user-select: none;
-    }
-
-    .intro {
-      font-size: 1.4rem;
-      margin-bottom: 2rem;
-      color: #9ee7ff;
-      user-select: text;
-      font-weight: 500;
-      text-shadow: 0 0 6px #00acc1aa;
-    }
-
-    .server-status {
-      background: rgba(77, 208, 225, 0.15);
-      border-radius: 16px;
-      padding: 2rem 2.5rem;
-      box-shadow: 0 0 20px #4dd0e1cc;
-      margin-bottom: 2.5rem;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      color: #b3e5fc;
-    }
-
-    .server-status .players {
-      font-size: 3rem;
-      color: #00acc1;
-      margin-bottom: 0.4rem;
-      text-shadow: 0 0 12px #00acc1cc;
-    }
-
-    .server-status .ip {
-      font-size: 1.3rem;
-      margin-bottom: 0.7rem;
-      user-select: text;
-      letter-spacing: 1.3px;
-      text-shadow: 0 0 8px #00acc1bb;
-    }
-
-    .server-status .state {
-      font-size: 1.1rem;
-      color: #26a69a;
-      text-shadow: 0 0 6px #26a69aaa;
-      user-select: none;
-    }
-
-    .server-status .state.offline {
-      color: #e57373;
-      text-shadow: 0 0 6px #e57373aa;
-    }
-
-    .admin-panel {
-      background: rgba(0, 140, 255, 0.15);
-      border-radius: 14px;
-      padding: 1.8rem 2rem;
-      margin-bottom: 3rem;
-      color: #80deea;
-      font-weight: 600;
-      box-shadow: 0 0 25px #0288d1cc;
-      text-align: left;
-      line-height: 1.6;
-    }
-
-    .admin-panel p {
-      margin-bottom: 1rem;
-      font-size: 1.15rem;
-      user-select: none;
-      text-shadow: 0 0 6px #00acc1aa;
-    }
-
-    .buttons {
-      display: flex;
-      justify-content: center;
-      gap: 1.5rem;
-      margin-bottom: 2.8rem;
       flex-wrap: wrap;
-    }
-
-    button,
-    .discord-btn {
-      cursor: pointer;
-      border: none;
-      padding: 0.9rem 2.2rem;
-      font-weight: 700;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
-      transition: background-color 0.3s ease, color 0.3s ease,
-        transform 0.15s ease;
-      font-size: 1.1rem;
-      user-select: none;
-      color: #222;
-      background: #4dd0e1;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
+      height: auto;
+      padding: 12px 16px;
+      gap: 12px;
       justify-content: center;
-      min-width: 140px;
     }
-
-    button:hover,
-    .discord-btn:hover {
-      background: #00acc1;
-      color: #eee;
-      transform: scale(1.08);
-      box-shadow: 0 6px 18px #00acc1cc;
+    .search-input {
+      width: 100%;
+      max-width: none;
     }
-
-    #theme-toggle {
-      background: #0288d1;
-      color: white;
-    }
-
-    #theme-toggle:hover {
-      background: #015f7a;
-    }
-
-    .discord-btn {
-      background: #7289da;
-      color: white;
-    }
-
-    .discord-btn svg {
-      width: 22px;
-      height: 22px;
-      fill: white;
-    }
-
-    .socials {
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      margin-top: 2.5rem;
-    }
-
-    .socials a {
-      color: #4dd0e1;
-      font-size: 2.3rem;
-      transition: color 0.3s ease;
-      user-select: none;
-      filter: drop-shadow(0 0 3px #00acc1cc);
-      text-decoration: none;
-    }
-
-    .socials a:hover {
-      color: #00acc1;
-      filter: drop-shadow(0 0 7px #00acc1dd);
-    }
-
-    footer {
-      margin-top: 4rem;
-      padding-top: 1.2rem;
-      font-weight: 700;
-      color: #4dd0e1;
-      text-align: center;
-      user-select: none;
-      text-shadow: 0 0 10px #4dd0e1cc;
-      font-size: 1.1rem;
-    }
-
-    /* Light theme overrides */
-    body.light {
-      color: #222;
-      background: #e0f7fa;
-    }
-
-    body.light .container {
-      background: rgba(240, 248, 255, 0.9);
-      box-shadow: 0 0 35px #0288d1aa;
-    }
-
-    body.light header {
-      color: #0288d1;
-      text-shadow: 0 0 8px #0288d1aa;
-    }
-
-    body.light .intro {
-      color: #026f99;
-      text-shadow: none;
-    }
-
-    body.light .server-status {
-      background: rgba(2, 136, 209, 0.15);
-      box-shadow: 0 0 20px #0288d1cc;
-      color: #015f7a;
-    }
-
-    body.light .admin-panel {
-      background: rgba(2, 136, 209, 0.15);
-      color: #015f7a;
-      box-shadow: 0 0 20px #0288d1cc;
-    }
-
-    body.light button,
-    body.light .discord-btn {
-      color: #222;
-      background: #4dd0e1;
-    }
-
-    body.light button:hover,
-    body.light .discord-btn:hover {
-      background: #0288d1;
-      color: white;
-    }
-
-    body.light .socials a {
-      color: #0288d1;
-      filter: none;
-    }
-
-    body.light .socials a:hover {
-      color: #015f7a;
-      filter: none;
-    }
-  </style>
+  }
+</style>
 </head>
 <body>
-  <div class="stars" aria-hidden="true"></div>
-
-  <div class="container" role="main">
-    <!-- Introduction -->
-    <header>Welcome to Our Exclusive SA:MP Server</header>
-    <p class="intro">
-      We offer the best gameplay experience in the world of San Andreas with a professional team, stable server, and unique atmosphere.
-      Join us and enjoy the open world and exciting RP environment.
-    </p>
-
-    <!-- Server Status -->
-    <section class="server-status" aria-label="Server Status">
-      <div class="players" id="players-count" aria-live="polite" aria-atomic="true">
-        Players Online: 0/50
+<div id="app" role="main">
+  <header role="banner" aria-label="Main header with search and user profile">
+    <div class="header-left">
+      <span class="header-logo" aria-label="Server Europa RP Learning Platform">Europa RP</span>
+    </div>
+    <div class="header-center">
+      <input type="search" aria-label="Search courses" placeholder="Search courses..." id="searchCourses" class="search-input" />
+      <span class="material-icons" id="notificationsBtn" title="Notifications" role="button" tabindex="0">notifications</span>
+      <span class="progress-overview" aria-live="polite" id="progressOverview">Progress: 0%</span>
+    </div>
+    <div class="header-right">
+      <div class="profile" tabindex="0" aria-label="User profile">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/d6f38e84-8ad2-4d92-be79-51032778eff5.png" alt="User avatar with initials EU" />
+        <span class="profile-name">EU_Player</span>
       </div>
-      <div class="ip">Server IP: 46.183.184.33:5812</div>
-      <div class="state" id="server-state">
-        Server Status: <span>Online</span>
-      </div>
+    </div>
+  </header>
+
+  <main>
+    <aside id="left-sidebar" aria-label="Course navigation and catalog">
+      <h2 id="courseCatalogTitle">Course Catalog</h2>
+      <input type="search" id="courseSearchInput" aria-label="Filter courses" placeholder="Filter courses..." class="search-filter" />
+      <div id="course-list" role="list" aria-live="polite" aria-relevant="additions removals"></div>
+    </aside>
+
+    <section id="content" tabindex="0" aria-label="Lesson content area">
+      <h1 id="lesson-title">Select a course and lesson</h1>
+
+      <section id="video-player" aria-label="Video lesson player">
+        <video id="lesson-video" controls preload="metadata" tabindex="0" aria-describedby="video-description" aria-label="Video player with custom controls">
+          <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm" type="video/webm" />
+          <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm" type="video/mp4" />
+          Sorry, your browser doesn't support embedded videos.
+        </video>
+        <div id="video-controls" aria-label="Video playback controls">
+          <button id="playPauseBtn" aria-label="Play or pause video"><span class="material-icons" id="playPauseIcon">play_arrow</span></button>
+          <div id="video-progress">
+            <input type="range" id="progressBar" min="0" max="100" value="0" aria-label="Video progress"/>
+          </div>
+          <button id="muteBtn" aria-label="Mute or unmute video"><span class="material-icons" id="muteIcon">volume_up</span></button>
+        </div>
+        <div id="transcript" aria-live="polite" aria-atomic="true" aria-label="Video transcript text" tabindex="0">
+          <p>Welcome to this lesson on Server Europa RP gameplay and classes. Learn the fundamentals and advance your skills with interactive content.</p>
+        </div>
+      </section>
+
+      <section id="quiz" aria-label="Interactive lesson quiz">
+        <h3>Quiz: Basic Server Europa RP Classes</h3>
+        <form id="quizForm" novalidate>
+          <div class="question" aria-live="polite">
+            <p>1. Which class specializes in law enforcement?</p>
+            <div class="answers">
+              <label><input type="radio" name="q1" value="police" required /> Police</label>
+              <label><input type="radio" name="q1" value="medic" /> Medic</label>
+              <label><input type="radio" name="q1" value="civilian" /> Civilian</label>
+            </div>
+          </div>
+          <div class="question" aria-live="polite">
+            <p>2. What is essential for a successful faction member?</p>
+            <div class="answers">
+              <label><input type="checkbox" name="q2" value="teamwork" /> Teamwork</label>
+              <label><input type="checkbox" name="q2" value="blasting" /> Blasting</label>
+              <label><input type="checkbox" name="q2" value="communication" /> Communication</label>
+            </div>
+          </div>
+          <button type="submit" class="submit-btn" aria-label="Submit quiz">Submit Quiz</button>
+          <div id="quizFeedback" class="feedback" role="alert"></div>
+        </form>
+      </section>
     </section>
 
-    <!-- Administration -->
-    <section class="admin-panel" aria-label="Server Administration">
-      <p>FOUNDER: <strong>★eva★</strong></p>
-      <p>CO-FOUNDER: <strong>shan</strong></p>
-      <p>Technical Manager: <strong>ghost</strong></p>
-      <p>chief Admin: <strong>karl</strong></p>
-    </section>
+    <aside id="right-sidebar" aria-label="Progress sidebar and additional tools">
+      
+      <section class="progress-sidebar" aria-label="Progress tracking overview">
+        <div class="sidebar-title">Your Progress</div>
+        <div class="progress-labels" aria-hidden="true">
+          <span>0%</span><span>100%</span>
+        </div>
+        <div id="overall-progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div></div>
+        </div>
+        <div id="courseProgressList" style="margin-top:12px;overflow-y:auto;max-height:120px;"></div>
+      </section>
 
-    <!-- Buttons -->
-    <div class="buttons">
-      <button id="theme-toggle" aria-pressed="false" aria-label="Toggle dark/light mode">Light Mode</button>
-      <a href="https://discord.gg/yourdiscord" target="_blank" rel="noopener" class="discord-btn" aria-label="Visit Discord Server">
-        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <path
-            d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0786-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0795.0095c.1192.099.246.1981.372.2924a.0766.0766 0 01-.006.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1062c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286z"
-          />
-        </svg>
-        Discord
-      </a>
-    </div>
+      <section class="notes-sidebar" aria-label="Note taking">
+        <div class="sidebar-title">Notes</div>
+        <textarea id="note-textarea" rows="8" placeholder="Write your notes here..." aria-multiline="true"></textarea>
+        <div id="notes-controls" style="margin-top:8px; display:flex; gap: 10px;">
+          <button id="saveNoteBtn" aria-label="Save Note">Save</button>
+          <button id="clearNoteBtn" aria-label="Clear Notes">Clear</button>
+        </div>
+      </section>
 
-    <!-- Social Media -->
-    <div class="socials" aria-label="Social Media Links">
-      <a href="https://twitter.com/yourprofile" target="_blank" rel="noopener" aria-label="Twitter" title="Twitter"></a>
-      <a href="https://facebook.com/yourprofile" target="_blank" rel="noopener" aria-label="Facebook" title="Facebook"></a>
-      <a href="https://instagram.com/yourprofile" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram"></a>
-      <a href="https://youtube.com/yourchannel" target="_blank" rel="noopener" aria-label="YouTube" title="YouTube"></a>
-    </div>
-  </div>
+      <section class="discussion-sidebar" aria-label="Discussion forum">
+        <div class="sidebar-title">Discussion</div>
+        <div id="discussion-list" role="list" aria-live="polite" aria-relevant="additions"></div>
+        <div id="discussion-input">
+          <input type="text" id="discussionMsg" placeholder="Write a message..." aria-label="Write message" />
+          <button id="sendMsgBtn" aria-label="Send Message">Send</button>
+        </div>
+      </section>
 
-  <footer>
-    Thank you for visiting our server website. Have a great time!
+      <section class="resources-sidebar" aria-label="Additional resources">
+        <div class="sidebar-title">Resources</div>
+        <div id="resources-list" role="list">
+          <div class="resource-item" tabindex="0" role="listitem" aria-label="Download the Server Europa RP handbook">Download Handbook PDF</div>
+          <div class="resource-item" tabindex="0" role="listitem" aria-label="Official server forum link">Official Forum</div>
+          <div class="resource-item" tabindex="0" role="listitem" aria-label="Video tutorials playlist">Video Tutorials</div>
+          <div class="resource-item" tabindex="0" role="listitem" aria-label="Server rules and guidelines">Rules & Guidelines</div>
+        </div>
+      </section>
+
+    </aside>
+  </main>
+
+  <footer role="contentinfo" style="background: #060b24cc; color: #94a3b8; display: flex; justify-content: center; align-items:center; font-size: 0.85rem;">
+    &copy; 2024 Server Europa RP Learning Platform - All Rights Reserved
   </footer>
+</div>
 
-  <script>
-    // Falling stars animation
-    const starsContainer = document.querySelector('.stars');
-    const numStars = 120;
-
-    function randomBetween(min, max) {
-      return Math.random() * (max - min) + min;
-    }
-
-    for (let i = 0; i < numStars; i++) {
-      const star = document.createElement('div');
-      star.classList.add('star');
-      star.style.left = `${randomBetween(0, 100)}vw`;
-      star.style.top = `${randomBetween(-100, 0)}vh`;
-      const size = randomBetween(1, 3);
-      star.style.width = star.style.height = `${size}px`;
-      star.style.opacity = randomBetween(0.3, 0.9);
-      star.style.animationDuration = `${randomBetween(5, 15)}s`;
-      star.style.animationDelay = `${randomBetween(0, 15)}s`;
-      starsContainer.appendChild(star);
-    }
-
-    // Theme toggle button logic
-    const themeToggle = document.getElementById('theme-toggle');
-    themeToggle.addEventListener('click', () => {
-      document.body.classList.toggle('light');
-      const isLight = document.body.classList.contains('light');
-      themeToggle.setAttribute('aria-pressed', isLight);
-      themeToggle.textContent = isLight ? 'Dark Mode' : 'Light Mode';
-    });
-  </script>
-</body>
-</html>
+<script>
+  // Dummy data for courses with classes
+  const COURSES = [
+    {
+      id: 'law1',
+      title: 'Law Enforcement Basics',
+      description: 'Fundamentals of policing and legal procedure in Los Santos.',
+      instructor: 'Officer Smith',
+      lessons: [
+        { id: 'law1-1', title: 'Introduction to Policing', content: 'Policing introduction...', video: '', quiz: null },
+        { id: 'law1-2', title: 'Patrol Basics', content: 'Patrol techniques...', video: '', quiz: null },
+      ],
+      duration: '3h',
+      difficulty: 'Beginner',
+      category: 'Law',
+      enrolled: 120,
+      progress: 0,
+      rating: 4.7,
+    },
+    {
+      id: 'medic1',
+      title: 'Medic Training',
+      description: 'Emergency medical procedures and first aid.',
+      instructor: 'Dr. Lopez',
+      lessons: [
+        { id: 'medic1-1', title: 'Basic First Aid', content: 'First aid basics...', video: '', quiz: null },
+        { id: 'medic1-2', title: 'Advanced Trauma Care', content: 'Trauma response...', video: '', quiz: null },
+      ],
+      duration: '4h',
+      difficulty: 'Intermediate',
+      category: 'Medical',
+      enrolled: 87,
+      progress: 0,
+      rating: 4.5,
+    },
+    {
+      id: 'civil1',
+      title: 'Civilian Life Skills',
+      description: 'How to thrive and interact in Los Santos as a civilian.',
+      instructor: 'Jane Doe',
+      lessons: [
+        { id: 'civil1-1', title: 'Understanding the City', content: 'City life...', video: '', quiz: null },
+        { id: 'civil1-2', title: 'Economy and Jobs', content: 'Jobs and money...', video: '', quiz: null },
+      ],
+      duration: '2h',
+      difficulty: 'Beginner',
+      category: 'Civilian',
+      enrolled: 150,
+      progress: 0,
+      rating: 4.4,
+    },
+    {
+      id: 'gang1',
+      title: 'Gang Warfare Tactics',
+      description: 'Strategies and tactics for gang conflicts in Los Santos.',
+      instructor: 'T-Bone',
+      lessons: [
+        { id: 'gang1-1', title: 'Gang Culture Overview', content: 'Gang culture...', video: '', quiz: null },
+        { id: 'gang1-2', title: 'Weapons & Territory', content: 'Weapons tactics...', video: '', quiz: null },
+ 
