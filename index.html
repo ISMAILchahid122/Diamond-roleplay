@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Server Europa RP Learning Platform</title>
+<title>Diamond RP Learning Platform</title>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
@@ -17,8 +17,7 @@
     min-height: 100%;
     font-family: 'Inter', sans-serif;
     color: #e0e7ff;
-    background: url('https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/5ad168ac-edf0-4f54-8014-8d8b138c7e6b.png') no-repeat center center/cover;
-    /* Remove overflow hidden to allow page scrolling */
+    background: url('https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/dd223623-c283-47d3-b9f8-9d3fe016e690.png') no-repeat center center/cover;
     overflow-y: auto;
   }
   #app {
@@ -49,10 +48,15 @@
   .header-logo {
     font-weight: 700;
     font-size: 1.5rem;
-    background: linear-gradient(135deg, #0ea5e9, #14b8a6);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #e0e7ff;
+    display: flex;
+    align-items: center;
     cursor: default;
+    gap: 10px;
+  }
+  .header-logo img {
+    width: 36px;
+    height: 36px;
   }
   header .material-icons {
     cursor: pointer;
@@ -109,7 +113,6 @@
     padding: 20px;
     background: rgba(6,11,36,0.75);
     backdrop-filter: blur(14px);
-    /* remove fixed height to allow page scroll */
     min-height: 600px;
   }
 
@@ -343,6 +346,26 @@
     border-bottom: 1px solid #14b8a6aa;
     padding-bottom: 6px;
   }
+  /* Staff list style */
+  #staff-list {
+    color: #94a3b8;
+    font-size: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  #staff-list div {
+    display: flex;
+    justify-content: space-between;
+  }
+  #staff-list .role {
+    font-weight: 600;
+    color: #0ea5e9;
+  }
+  #staff-list .name {
+    font-style: italic;
+    color: #a5b4fc;
+  }
 
   /* Progress Sidebar */
   #overall-progress-bar {
@@ -519,7 +542,10 @@
 <div id="app" role="main">
   <header role="banner" aria-label="Main header with search and user profile">
     <div class="header-left">
-      <span class="header-logo" aria-label="Server Europa RP Learning Platform">Europa RP</span>
+      <span class="header-logo" aria-label="Diamond RP Learning Platform">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/d7fd5fa3-b5ec-4748-b655-64051e3e5a4d.png" alt="Diamond RP Logo – A shining diamond icon" />
+        Diamond RP
+      </span>
     </div>
     <div class="header-center">
       <input type="search" aria-label="Search courses" placeholder="Search courses..." id="searchCourses" class="search-input" />
@@ -528,8 +554,8 @@
     </div>
     <div class="header-right">
       <div class="profile" tabindex="0" aria-label="User profile">
-        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/d6f38e84-8ad2-4d92-be79-51032778eff5.png" alt="User avatar with initials EU" />
-        <span class="profile-name">EU_Player</span>
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/721a1105-5953-4473-8316-4e875dcc2731.png" alt="User avatar with initials DRP" />
+        <span class="profile-name">Diamond-RP</span>
       </div>
     </div>
   </header>
@@ -539,15 +565,24 @@
       <h2 id="courseCatalogTitle">Course Catalog</h2>
       <input type="search" id="courseSearchInput" aria-label="Filter courses" placeholder="Filter courses..." class="search-filter" />
       <div id="course-list" role="list" aria-live="polite" aria-relevant="additions removals"></div>
+      <section aria-label="Staff Members" style="margin-top:30px;">
+        <h2>Staff</h2>
+        <div id="staff-list">
+          <div><span class="role">Founder:</span> <span class="name">★eve★</span></div>
+          <div><span class="role">Co-founder:</span> <span class="name">shan</span></div>
+          <div><span class="role">Technical Manager:</span> <span class="name">Ghost</span></div>
+          <div><span class="role">Chief Admin:</span> <span class="name">Karl</span></div>
+        </div>
+      </section>
     </aside>
 
     <section id="content" tabindex="0" aria-label="Lesson content area">
       <h1 id="lesson-title">Select a course and lesson</h1>
 
       <section id="video-player" aria-label="Video lesson player">
-        <video id="lesson-video" controls preload="metadata" tabindex="0" aria-describedby="video-description" aria-label="Video player with custom controls">
-          <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm" type="video/webm" />
-          <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm" type="video/mp4" />
+        <video id="lesson-video" controls preload="metadata" tabindex="0" aria-describedby="video-description" aria-label="Video player with GTA San Andreas gameplay shader effects">
+          <source src="https://cdn.pysolfc.com/embedded-videos/gta-san-andreas-high-shader.webm" type="video/webm" />
+          <source src="https://cdn.pysolfc.com/embedded-videos/gta-san-andreas-high-shader.mp4" type="video/mp4" />
           Sorry, your browser doesn't support embedded videos.
         </video>
         <div id="video-controls" aria-label="Video playback controls">
@@ -558,12 +593,12 @@
           <button id="muteBtn" aria-label="Mute or unmute video"><span class="material-icons" id="muteIcon">volume_up</span></button>
         </div>
         <div id="transcript" aria-live="polite" aria-atomic="true" aria-label="Video transcript text" tabindex="0">
-          <p>Welcome to this lesson on Server Europa RP gameplay and classes. Learn the fundamentals and advance your skills with interactive content.</p>
+          <p>Welcome to this lesson on Diamond RP gameplay and classes. Learn the fundamentals and advance your skills with interactive content.</p>
         </div>
       </section>
 
       <section id="quiz" aria-label="Interactive lesson quiz">
-        <h3>Quiz: Basic Server Europa RP Classes</h3>
+        <h3>Quiz: Basic Diamond RP Classes</h3>
         <form id="quizForm" novalidate>
           <div class="question" aria-live="polite">
             <p>1. Which class specializes in law enforcement?</p>
@@ -621,7 +656,7 @@
       <section class="resources-sidebar" aria-label="Additional resources">
         <div class="sidebar-title">Resources</div>
         <div id="resources-list" role="list">
-          <div class="resource-item" tabindex="0" role="listitem" aria-label="Download the Server Europa RP handbook">Download Handbook PDF</div>
+          <div class="resource-item" tabindex="0" role="listitem" aria-label="Download the Diamond RP handbook">Download Handbook PDF</div>
           <div class="resource-item" tabindex="0" role="listitem" aria-label="Official server forum link">Official Forum</div>
           <div class="resource-item" tabindex="0" role="listitem" aria-label="Video tutorials playlist">Video Tutorials</div>
           <div class="resource-item" tabindex="0" role="listitem" aria-label="Server rules and guidelines">Rules & Guidelines</div>
@@ -632,7 +667,7 @@
   </main>
 
   <footer role="contentinfo" style="background: #060b24cc; color: #94a3b8; display: flex; justify-content: center; align-items:center; font-size: 0.85rem;">
-    &copy; 2024 Server Europa RP Learning Platform - All Rights Reserved
+    &copy; 2024 Diamond RP Learning Platform - All Rights Reserved
   </footer>
 </div>
 
@@ -669,30 +704,4 @@
       category: 'Medical',
       enrolled: 87,
       progress: 0,
-      rating: 4.5,
-    },
-    {
-      id: 'civil1',
-      title: 'Civilian Life Skills',
-      description: 'How to thrive and interact in Los Santos as a civilian.',
-      instructor: 'Jane Doe',
-      lessons: [
-        { id: 'civil1-1', title: 'Understanding the City', content: 'City life...', video: '', quiz: null },
-        { id: 'civil1-2', title: 'Economy and Jobs', content: 'Jobs and money...', video: '', quiz: null },
-      ],
-      duration: '2h',
-      difficulty: 'Beginner',
-      category: 'Civilian',
-      enrolled: 150,
-      progress: 0,
-      rating: 4.4,
-    },
-    {
-      id: 'gang1',
-      title: 'Gang Warfare Tactics',
-      description: 'Strategies and tactics for gang conflicts in Los Santos.',
-      instructor: 'T-Bone',
-      lessons: [
-        { id: 'gang1-1', title: 'Gang Culture Overview', content: 'Gang culture...', video: '', quiz: null },
-        { id: 'gang1-2', title: 'Weapons & Territory', content: 'Weapons tactics...', video: '', quiz: null },
- 
+      rating: 4
